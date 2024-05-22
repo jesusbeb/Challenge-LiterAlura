@@ -1,26 +1,29 @@
 package com.alura.literalura.principal;
 
 import com.alura.literalura.service.ConsumoApi;
+import com.alura.literalura.service.ConvierteDatos;
 
 import java.util.Scanner;
 
 public class Principal {
-    //variables
+    //variables e instancias
     private int opcion = -1;
     private Scanner teclado = new Scanner(System.in);
-    ConsumoApi consumoApi = new ConsumoApi();
+    private ConsumoApi consumoApi = new ConsumoApi();
     private final String URL_BASE = "https://gutendex.com/books/";
-
-
-
+    private ConvierteDatos convierteDatos = new ConvierteDatos();
 
 
 
     //Metodo que muestra el menu al usuario
     public void muestraMenu(){
 
+        //Usamos el metodo para consumir la Api y la almacenamos en un String
         String json = consumoApi.obtenerDatosApi(URL_BASE);
-        System.out.println(json);
+        //System.out.println(json);
+
+
+
 
 
 //        do {
