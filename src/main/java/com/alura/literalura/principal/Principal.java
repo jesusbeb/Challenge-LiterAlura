@@ -1,5 +1,7 @@
 package com.alura.literalura.principal;
 
+import com.alura.literalura.model.DatosAutor;
+import com.alura.literalura.model.JsonResults;
 import com.alura.literalura.service.ConsumoApi;
 import com.alura.literalura.service.ConvierteDatos;
 
@@ -19,8 +21,13 @@ public class Principal {
     public void muestraMenu(){
 
         //Usamos el metodo para consumir la Api y la almacenamos en un String
-        String json = consumoApi.obtenerDatosApi(URL_BASE);
+        var json = consumoApi.obtenerDatosApi(URL_BASE);
         //System.out.println(json);
+        //Usamos el metodo para convertir el json en String a una clase que contiene un List<Libro> e
+        //imprimimos la lista con todos los libros y sus atributos
+        var datos = convierteDatos.JsonToClass(json, JsonResults.class);
+        System.out.println(datos);
+
 
 
 

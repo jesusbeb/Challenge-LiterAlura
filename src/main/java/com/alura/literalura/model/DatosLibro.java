@@ -1,0 +1,19 @@
+package com.alura.literalura.model;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.List;
+
+//Creamos clase record de Datoslibro para obtener los datos que estan dentro de la clave results del json
+//authors lo almacenamos en una lista, ya que en el json esta igual en formato de lista. La lista sera
+//de tipo DatosAutor y se creara la clase, ya que se mapearan sus datos contenidos
+//languages tambien esta en una lista, pero se creara de String, ya que momentaneamente no se mapearan sus datos
+@JsonIgnoreProperties(ignoreUnknown = true)
+public record DatosLibro(
+        @JsonAlias("title") String titulo,
+        @JsonAlias("authors") List<DatosAutor> autor,
+        @JsonAlias("languages") List<String> idiomas,
+        @JsonAlias("download_count") Double numeroDescargas
+){
+}
