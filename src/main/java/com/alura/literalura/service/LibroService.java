@@ -24,7 +24,7 @@ public class LibroService {
     //datosbusqueda es de tipo JsonResults, accesamos a la lista que tiene de libros y aplicamos stream
     //filtramos la lista de libros para que solo contenga los que coincidan con el libro buscado por el usuario
     //find.First obtiene el primer resultado. Se trata la variable Optional con if-else
-    public JsonResults buscarLibroPortitulo(String buscarLibro){
+    public void buscarLibroPortitulo(String buscarLibro){
         var json = consumoApi.obtenerDatosApi(URL_BASE + "?search" + buscarLibro.replace(" ", "%20"));
         var datosBusqueda = convierteDatos.JsonToClass(json, JsonResults.class);
         Optional<DatosLibro> libroBuscado = datosBusqueda.libro().stream()
@@ -35,7 +35,7 @@ public class LibroService {
         } else {
             System.out.println("Libro no encontrado.");
         }
-        return datosBusqueda;
+
     }
 
 
