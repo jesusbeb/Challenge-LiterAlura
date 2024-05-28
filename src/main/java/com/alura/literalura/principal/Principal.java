@@ -7,6 +7,7 @@ import com.alura.literalura.service.ConsumoApi;
 import com.alura.literalura.service.ConvierteDatos;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Principal{
@@ -30,8 +31,10 @@ public class Principal{
     //Metodo que muestra el menu al usuario
     public void muestraMenu(){
         do {
-            System.out.println("""
-                \nTeclea el numero de la opción deseada:
+            try { //excepcion para cuando el usuario ingrese una opcion no valida
+                System.out.println("""
+                \n***** BIENVENIDO A LITERALURA *****
+                Teclea el numero de la opción deseada:
                 1. Buscar libro por título
                 2. Listar libros registrados
                 3. Listar autores registrados
@@ -39,46 +42,51 @@ public class Principal{
                 5. Listar libros por idioma
                 0. Salir
                 """);
-            opcion = teclado.nextInt();
-            teclado.nextLine(); //se coloca para evitar error
+                opcion = teclado.nextInt();
+                teclado.nextLine(); //se coloca para evitar error
 
-            switch (opcion){
-                case 1:
-                    buscarLibroPortitulo();
-                    break;
-                case 2:
-                    System.out.println("LISTA DE LIBROS REGISTRADOS: ");
-                    //listarLibrosRegistrados()
-                    break;
-                case 3:
-                    System.out.println("LISTA DE AUTORES REGISTRADOS: ");
-                    //listarAutoresRegistrados()
-                    break;
-                case 4:
-                    System.out.println("Introduce el año para mostrar los autores vivos en ese año: ");
-                    var year = teclado.nextInt();
-                    //autoresVivos();
-                    break;
-                case 5:
-                    System.out.println("""
+                switch (opcion){
+                    case 1:
+                        buscarLibroPortitulo();
+                        break;
+                    case 2:
+                        System.out.println("LISTA DE LIBROS REGISTRADOS: ");
+                        //listarLibrosRegistrados()
+                        break;
+                    case 3:
+                        System.out.println("LISTA DE AUTORES REGISTRADOS: ");
+                        //listarAutoresRegistrados()
+                        break;
+                    case 4:
+                        System.out.println("Introduce el año para mostrar los autores vivos en ese año: ");
+                        var year = teclado.nextInt();
+                        //autoresVivos();
+                        break;
+                    case 5:
+                        System.out.println("""
                         Ingrese el idioma para buscar los libros:
                         es - español
                         en - inglés
                         fr - francés
                         pt - portugués
                         """);
-                    var idioma = teclado.next();
-                    teclado.nextLine();
-                    //listarLibrosPorIdioma();
-                    break;
-                case 0:
-                    System.out.println("Saliendo de la aplicación... Hasta luego!");
-                    break;
-                default:
-                    System.out.println("Opción inválida.");
+                        var idioma = teclado.next();
+                        teclado.nextLine();
+                        //listarLibrosPorIdioma();
+                        break;
+                    case 0:
+                        System.out.println("Saliendo de la aplicación... Hasta luego!");
+                        break;
+                    default:
+                        System.out.println("Opción inválida.");
+                }
+            } catch (Exception e){
+                System.out.println("Error: Ingresar una opción válida.");
+                teclado.nextLine();
             }
         } while (opcion != 0);
     }
+
 
     //Metodo para buscar libro en la Api
     //Agregamos los parametros indicados a la URL_BASE que se envia al metodo obtenerDatosApi para poder buscar libros.
