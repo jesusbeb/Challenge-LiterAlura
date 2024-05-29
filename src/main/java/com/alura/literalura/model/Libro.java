@@ -83,9 +83,14 @@ public class Libro {
     //Para mostrar la informaciona mapeada
     @Override
     public String toString() {
-        return "titulo='" + titulo + '\'' +
-                ", autor=" + autor +
-                ", idiomas=" + idiomas +
-                ", numeroDeDescargas=" + descargas;
+        return "Título: " +titulo +"\n" +
+                "Autor: " +autor.getNombre() +"\n" +
+                "Idioma: " +idiomas +"\n" +
+                "Descargas: " +descargas +"\n";
+
+//        return "titulo='" + titulo + '\'' +
+//                ", autor=" + autor +
+//                ", idiomas=" + idiomas +
+//                ", numeroDeDescargas=" + descargas;
     }
 }

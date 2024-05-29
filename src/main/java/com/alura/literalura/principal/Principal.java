@@ -118,7 +118,7 @@ public class Principal{
 
             Libro libroDb = libroRepo.findByTitulo(datosLibro.titulo());
             if(libroDb != null){
-                System.out.println("LIBRO ENCONTRADO EN LA BD: ");
+                System.out.println("\n---LIBRO ENCONTRADO EN LA BD---");
                 System.out.println(libroDb);
             }
             else{
@@ -128,13 +128,13 @@ public class Principal{
                     autorRepo.save(autor);
                     Libro libro = new Libro(datosLibro, autor);
                     libroRepo.save(libro);
-                    System.out.println("LIBRO ENCONTRADO EN LA API: ");
+                    System.out.println("\n---LIBRO ENCONTRADO EN LA API---");
                     System.out.println(libro);
                 }
                 else{
                     Libro libro = new Libro(datosLibro, autorDb);
                     libroRepo.save(libro);
-                    System.out.println("LIBRO ENCONTRADO EN LA API: ");
+                    System.out.println("\nLIBRO ENCONTRADO EN LA API: ");
                     System.out.println(libro);
                 }
             }
