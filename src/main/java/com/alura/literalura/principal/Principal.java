@@ -39,7 +39,7 @@ public class Principal{
                 Teclea el numero de la opción deseada:
                 1. Buscar libro por título
                 2. Listar libros registrados en la BD
-                3. Listar autores registrados
+                3. Listar autores registrados en la BD
                 4. Listar autores vivos en un determinado año
                 5. Listar libros por idioma
                 0. Salir
@@ -55,8 +55,7 @@ public class Principal{
                         listarLibrosRegistradosBD();
                         break;
                     case 3:
-                        System.out.println("LISTA DE AUTORES REGISTRADOS: ");
-                        //listarAutoresRegistrados()
+                        listarAutoresRegistradosBD();
                         break;
                     case 4:
                         System.out.println("Introduce el año para mostrar los autores vivos en ese año: ");
@@ -156,6 +155,18 @@ public class Principal{
                 .sorted((Comparator.comparing(Libro::getId)))
                 .forEach(System.out::println);
     }
+
+    //el metodo findAll() no se declaro, puesto que ya existe de forma predeterminada en
+    //el repositorio por detras. Se pudo hacer lo mismo con listarlibrosRegistradosBD()
+    private void listarAutoresRegistradosBD(){
+        List<Autor> autoresDB = autorRepo.findAll();
+        System.out.println("\n---LISTA DE AUTORES REGISTRADOS---\n");
+        autoresDB.stream()
+                .sorted(Comparator.comparing(Autor::getNombre))
+                .forEach(System.out::println);
+    }
+
+
 
 
 }

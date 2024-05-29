@@ -3,6 +3,9 @@ package com.alura.literalura.model;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.hibernate.internal.util.collections.ArrayHelper.forEach;
 
 //OneToMany. mappedBy = "autor" indica una relacion bidireccional y se relaciona con el campo autor dentro de
 //la entidad Libro. CascadeType.ALL propaga cualquier modificacion desde esta entidad a todas las
@@ -72,12 +75,20 @@ public class Autor {
         this.libros = libros;
     }
 
-
+    //Para mostrar solo el titulo de los libros de la lista libros, aplicamos stream a la lista,
+    //mapeamos cada objeto Libro y obtenemos la propiedad titulo
+    //collect(Collectors.joining... junta todos los titulos en una cadena y los separa por comas
+    //almacenamos todo en el String librosTitulos, e imprimimos el String en el retorno de toString
     @Override
     public String toString() {
-        return "nombre='" + nombre + '\'' +
-                ", Año de Nacimiento='" + anioNacimiento + '\'' +
-                ", Año de Defuncion='" + anioDefuncion + '\'';
+        String librosTitulos = libros.stream()
+                .map(Libro::getTitulo)
+                .collect(Collectors.joining(", "));
+
+        return "Autor: " +nombre +"\n" +
+                "Año de nacimiento: " +anioNacimiento +"\n" +
+                "Año de fallecimiento: " +anioDefuncion +"\n" +
+                "Libros: " +librosTitulos +"\n";
     }
 }
 
