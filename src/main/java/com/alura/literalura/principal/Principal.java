@@ -7,7 +7,9 @@ import com.alura.literalura.service.ConsumoApi;
 import com.alura.literalura.service.ConvierteDatos;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Comparator;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Principal{
@@ -36,7 +38,7 @@ public class Principal{
                 \n***** BIENVENIDO A LITERALURA *****
                 Teclea el numero de la opción deseada:
                 1. Buscar libro por título
-                2. Listar libros registrados
+                2. Listar libros registrados en la BD
                 3. Listar autores registrados
                 4. Listar autores vivos en un determinado año
                 5. Listar libros por idioma
@@ -50,8 +52,7 @@ public class Principal{
                         buscarLibroPortitulo();
                         break;
                     case 2:
-                        System.out.println("LISTA DE LIBROS REGISTRADOS: ");
-                        //listarLibrosRegistrados()
+                        listarLibrosRegistradosBD();
                         break;
                     case 3:
                         System.out.println("LISTA DE AUTORES REGISTRADOS: ");
@@ -134,15 +135,26 @@ public class Principal{
                 else{
                     Libro libro = new Libro(datosLibro, autorDb);
                     libroRepo.save(libro);
-                    System.out.println("\nLIBRO ENCONTRADO EN LA API: ");
+                    System.out.println("\n---LIBRO ENCONTRADO EN LA API--- ");
                     System.out.println(libro);
                 }
             }
-
         }
         else{
-            System.out.println("Libro no encontrado :(");
+            System.out.println("---Libro no encontrado :(");
         }
+    }
+
+    //Metodo para mostrar todos los libros registrados en la BD
+    //Creamos una lista de tipo Libro para almacenar el resultado del metodo del repositorio de libro
+    //Aplicamos stream a la lista librosBD, comparamos por Id para ordenarlos conforme fueron agregadis a
+    //la BD
+    private void listarLibrosRegistradosBD(){
+        List<Libro> librosBD = libroRepo.findAll();
+        System.out.println("\n---LISTA DE LIBROS REGISTRADOS EN LA BD---\n");
+        librosBD.stream()
+                .sorted((Comparator.comparing(Libro::getId)))
+                .forEach(System.out::println);
     }
 
 
