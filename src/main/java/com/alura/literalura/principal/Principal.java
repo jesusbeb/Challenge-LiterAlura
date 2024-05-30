@@ -7,10 +7,8 @@ import com.alura.literalura.service.ConsumoApi;
 import com.alura.literalura.service.ConvierteDatos;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Comparator;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Principal{
     //variables e instancias
@@ -58,9 +56,9 @@ public class Principal{
                         listarAutoresRegistradosBD();
                         break;
                     case 4:
-                        System.out.println("Introduce el año para mostrar los autores vivos en ese año: ");
+                        System.out.println("Introduce un año para saber que autores estaban o estan vivos: ");
                         var year = teclado.nextInt();
-                        //autoresVivos();
+                        buscarAutoresVivosPorAnio(year);
                         break;
                     case 5:
                         System.out.println("""
@@ -144,7 +142,6 @@ public class Principal{
         }
     }
 
-    //Metodo para mostrar todos los libros registrados en la BD
     //Creamos una lista de tipo Libro para almacenar el resultado del metodo del repositorio de libro
     //Aplicamos stream a la lista librosBD, comparamos por Id para ordenarlos conforme fueron agregadis a
     //la BD
@@ -164,6 +161,21 @@ public class Principal{
         autoresDB.stream()
                 .sorted(Comparator.comparing(Autor::getNombre))
                 .forEach(System.out::println);
+    }
+
+    //filter deja pasar a cada autor que su año de nacimiento sea diferente de cero y que no tenga mas de 100 años de edad
+    private void buscarAutoresVivosPorAnio(int year){
+        List<Autor> busquedaAutoresVivos = autorRepo.buscarAutorVivoPorAnio(year);
+        System.out.println("\n---AUTORES VIVOS EN EL AÑO " +year +"---");
+        if (busquedaAutoresVivos.isEmpty()){
+            System.out.println("No se encontraron autores vivos de la BD en " +year +"\n");
+        } else {
+            busquedaAutoresVivos.stream()
+                    .filter(a -> a.getAnioNacimiento() != 0 && (year - a.getAnioNacimiento()) < 100)
+                    .forEach(a ->
+                            System.out.println(a.getNombre() + " (" +a.getAnioNacimiento() +
+                                    "-" +a.getAnioDefuncion() +")"));
+        }
     }
 
 

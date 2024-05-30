@@ -15,6 +15,7 @@ public interface ILibroRepository extends JpaRepository<Libro, Long> {
 
     //Derived Querys o consultas derivadas. Son consultas que JPA interpretara al usar ciertas
     //palabras en el nombre del metodo.
+    //https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html
 
     //Metodo para encontrar un libro por el titulo. Inicia con la palabra findBy, agregamos el atributo titulo y
     //recibe como parametro un String con el titulo a buscar
