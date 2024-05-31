@@ -166,6 +166,7 @@ public class Principal{
         autoresDB.stream()
                 .sorted(Comparator.comparing(Autor::getNombre))
                 .forEach(System.out::println);
+        System.out.println(autoresDB.size() +" autores encontrados en total.");
     }
 
     //filter deja pasar a cada autor que su año de nacimiento sea diferente de cero y que no tenga mas de 100 años de edad
@@ -180,6 +181,7 @@ public class Principal{
                     .forEach(a ->
                             System.out.println(a.getNombre() + " (" +a.getAnioNacimiento() +
                                     "-" +a.getAnioDefuncion() +")"));
+            System.out.println("\n" +busquedaAutoresVivos.size() +" autores encontrados en total.");
         }
     }
 
