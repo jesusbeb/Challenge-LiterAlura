@@ -2,6 +2,8 @@ package com.alura.literalura.repository;
 
 import com.alura.literalura.model.Libro;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,5 +25,11 @@ public interface ILibroRepository extends JpaRepository<Libro, Long> {
 
     //Metodo que devuelve una lista de tipo Libro con todos los libros almacenados en la BD
     List<Libro> findAll();
+
+    //Metodo que usa una consulta JPQL para mostrar todos los libros escritos en cierto idioma
+    //LOWER(:idioma) convierte el parametro idioma a minusculas suponiendo que el usuario lo ingrese en mayusculas, para
+    //hacer coincidir la busqueda con el atributo idiomas de la entidad libro que esta en minusculas
+    @Query("SELECT l FROM Libro l WHERE l.idiomas = LOWER(:idioma)" )
+    List<Libro> buscarLibrosPorIdioma(String idioma);
 
 }

@@ -70,7 +70,7 @@ public class Principal{
                         """);
                         var idioma = teclado.next();
                         teclado.nextLine();
-                        //listarLibrosPorIdioma();
+                        listarLibrosPorIdioma(idioma);
                         break;
                     case 0:
                         System.out.println("Saliendo de la aplicación... Hasta luego!");
@@ -178,7 +178,19 @@ public class Principal{
         }
     }
 
-
+    //La validacion de letras mayusculas o minusculas se hace en el repositorio
+    private void listarLibrosPorIdioma(String idioma){
+        List<Libro> librosPorIdioma = libroRepo.buscarLibrosPorIdioma(idioma);
+        System.out.println("\n---LISTA DE LIBROS EN IDIOMA "+idioma.toUpperCase() +"---");
+        if (librosPorIdioma.isEmpty()){
+            System.out.println("No se encontraron libros en este idioma :(\n");
+        } else {
+            librosPorIdioma.stream()
+                    .sorted((Comparator.comparing(Libro::getId)))
+                    .forEach(System.out::println);
+            System.out.println(librosPorIdioma.size() +" libros encontrados en total.");
+        }
+    }
 
 
 }
