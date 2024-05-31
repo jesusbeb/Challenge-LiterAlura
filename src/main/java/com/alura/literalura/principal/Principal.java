@@ -147,10 +147,15 @@ public class Principal{
     //la BD
     private void listarLibrosRegistradosBD(){
         List<Libro> librosBD = libroRepo.findAll();
-        System.out.println("\n---LISTA DE LIBROS REGISTRADOS EN LA BD---\n");
-        librosBD.stream()
-                .sorted((Comparator.comparing(Libro::getId)))
-                .forEach(System.out::println);
+        if (librosBD.isEmpty()){
+            System.out.println("Lista de libros vacía, aun no se han realizado busquedas de libros");
+        } else{
+            System.out.println("\n---LISTA DE LIBROS REGISTRADOS EN LA BD---\n");
+            librosBD.stream()
+                    .sorted((Comparator.comparing(Libro::getId)))
+                    .forEach(System.out::println);
+            System.out.println(librosBD.size() +" libros encontrados en total.");
+        }
     }
 
     //el metodo findAll() no se declaro, puesto que ya existe de forma predeterminada en
