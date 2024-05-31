@@ -147,10 +147,10 @@ public class Principal{
     //la BD
     private void listarLibrosRegistradosBD(){
         List<Libro> librosBD = libroRepo.findAll();
+        System.out.println("\n---LISTA DE LIBROS REGISTRADOS EN LA BD---");
         if (librosBD.isEmpty()){
             System.out.println("Lista de libros vacía, aun no se han realizado busquedas de libros");
         } else{
-            System.out.println("\n---LISTA DE LIBROS REGISTRADOS EN LA BD---\n");
             librosBD.stream()
                     .sorted((Comparator.comparing(Libro::getId)))
                     .forEach(System.out::println);
@@ -162,11 +162,15 @@ public class Principal{
     //el repositorio por detras. Se pudo hacer lo mismo con listarlibrosRegistradosBD()
     private void listarAutoresRegistradosBD(){
         List<Autor> autoresDB = autorRepo.findAll();
-        System.out.println("\n---LISTA DE AUTORES REGISTRADOS---\n");
-        autoresDB.stream()
-                .sorted(Comparator.comparing(Autor::getNombre))
-                .forEach(System.out::println);
-        System.out.println(autoresDB.size() +" autor(es) encontrado(s) en total.");
+        System.out.println("\n---LISTA DE AUTORES REGISTRADOS---");
+        if(autoresDB.isEmpty()){
+            System.out.println("Lista de autores vacía, posiblemente porque aun no se han realizado busqueda de libros");
+        } else{
+            autoresDB.stream()
+                    .sorted(Comparator.comparing(Autor::getNombre))
+                    .forEach(System.out::println);
+            System.out.println(autoresDB.size() +" autor(es) encontrado(s) en total.");
+        }
     }
 
     //Se declara una variable long para obtener el numero de autores que pasaron el .filter
@@ -183,8 +187,8 @@ public class Principal{
         } else {
             long cantidadAutores = busquedaAutoresVivos.stream()
                     .filter(a -> a.getAnioNacimiento() != 0 && (year - a.getAnioNacimiento()) < 100)
-                    .peek(a -> System.out.println(a.getNombre() + " (" + a.getAnioNacimiento() + "-" + a.getAnioDefuncion() + ")"))
-                            .count();
+                    .peek(a -> System.out.println(a.getNombre() + " (" + a.getAnioNacimiento() + " - " + a.getAnioDefuncion() + ")"))
+                    .count();
             System.out.println("\n" +cantidadAutores +" autor(es) encontrados en total.");
         }
     }
