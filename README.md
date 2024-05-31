@@ -46,15 +46,15 @@ Para hacer uso de la aplicacion, se aconseja seguir los siguientes pasos:
   
   <li>
     <p>Se recomienda usar IntelliJ para abrir como proyecto la carpeta descargada.</p>
-  </li
+  </li>
     
   <li>
     <p>Una vez abierto el proyecto en IntelliJ, actualizar las dependencias de Maven para que se carguen en el proyecto.</p>
-  </li
+  </li>
     
   <li>
     <p>Se recomienda usar PostgreSQL y en pgAdmin crear una Base de Datos sin Tablas para almacenar los datos que la aplicacion obtendra de la API.</p>
-  </li
+  </li>
     
   <li>
     <p>Configurar el archivo application.properties del proyecto para indicar la url de la BD, username, password, driver de postgresql y dialecto de hibernate
@@ -68,7 +68,7 @@ Para hacer uso de la aplicacion, se aconseja seguir los siguientes pasos:
      hibernate.dialect=org.hibernate.dialect.HSQLDialect
      #Se indica a JPA que tiene permiso para ver cambios en la app y reflejarlos en la BD
      spring.jpa.hibernate.ddl-auto=update
-  </li
+  </li>
 
   <li>
     <p>Finalmente se puede ejecutar la aplicacion para usarla.</p>
