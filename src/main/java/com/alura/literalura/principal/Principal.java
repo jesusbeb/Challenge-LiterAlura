@@ -154,7 +154,7 @@ public class Principal{
             librosBD.stream()
                     .sorted((Comparator.comparing(Libro::getId)))
                     .forEach(System.out::println);
-            System.out.println(librosBD.size() +" libros encontrados en total.");
+            System.out.println(librosBD.size() +" libro(s) encontrado(s) en total.");
         }
     }
 
@@ -166,22 +166,26 @@ public class Principal{
         autoresDB.stream()
                 .sorted(Comparator.comparing(Autor::getNombre))
                 .forEach(System.out::println);
-        System.out.println(autoresDB.size() +" autores encontrados en total.");
+        System.out.println(autoresDB.size() +" autor(es) encontrado(s) en total.");
     }
 
+    //Se declara una variable long para obtener el numero de autores que pasaron el .filter
     //filter deja pasar a cada autor que su año de nacimiento sea diferente de cero y que no tenga mas de 100 años de edad
+    //peek es una operacion intermedia que se utiliza para realizar alguna accion en cada elemento del stream sin
+    //consumirlo. Aqui se usa para imprimir los autores que pasan el filtro
+    //count es una operacion terminal que devuelve el numero de elementos del stream despues de aplicar sus
+    //operaciones, en este caso el filter
     private void buscarAutoresVivosPorAnio(int year){
         List<Autor> busquedaAutoresVivos = autorRepo.buscarAutorVivoPorAnio(year);
         System.out.println("\n---AUTORES VIVOS EN EL AÑO " +year +"---");
         if (busquedaAutoresVivos.isEmpty()){
             System.out.println("No se encontraron autores vivos de la BD en " +year +"\n");
         } else {
-            busquedaAutoresVivos.stream()
+            long cantidadAutores = busquedaAutoresVivos.stream()
                     .filter(a -> a.getAnioNacimiento() != 0 && (year - a.getAnioNacimiento()) < 100)
-                    .forEach(a ->
-                            System.out.println(a.getNombre() + " (" +a.getAnioNacimiento() +
-                                    "-" +a.getAnioDefuncion() +")"));
-            System.out.println("\n" +busquedaAutoresVivos.size() +" autores encontrados en total.");
+                    .peek(a -> System.out.println(a.getNombre() + " (" + a.getAnioNacimiento() + "-" + a.getAnioDefuncion() + ")"))
+                            .count();
+            System.out.println("\n" +cantidadAutores +" autor(es) encontrados en total.");
         }
     }
 
@@ -195,7 +199,7 @@ public class Principal{
             librosPorIdioma.stream()
                     .sorted((Comparator.comparing(Libro::getId)))
                     .forEach(System.out::println);
-            System.out.println(librosPorIdioma.size() +" libros encontrados en total.");
+            System.out.println(librosPorIdioma.size() +" libro(s) encontrado(s) en total.");
         }
     }
 
